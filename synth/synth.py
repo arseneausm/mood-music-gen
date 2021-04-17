@@ -1,14 +1,18 @@
 import numpy as np
+from scipy import signal
 from scipy.io import wavfile
 
 # Returns the frequency of the nth key
 def key_freq(n):
     return (2**(1 / 12))**(n - 49) * 440 # Hz
 
+# Converts the note and octave into a frequency
 def note_freq(octave, note):
+    # The note progression of most octaves
     notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'] 
 
     if octave == 0:
+        # 0th octave has only these 3
         notes = ['A', 'A#', 'B']
 
         if note in notes:
@@ -19,6 +23,7 @@ def note_freq(octave, note):
             return 0
 
     elif octave == 8:
+        # One note in the 8th octave
         notes = ['C']
 
         if note in notes:
@@ -29,6 +34,7 @@ def note_freq(octave, note):
             return 0
 
     else:
+        # Else is a normal octave
         if note in notes:
             n = 12 * (octave - 1) + notes.index(note) + 4
             freq = key_freq(n)
@@ -37,6 +43,7 @@ def note_freq(octave, note):
             print('Err: Note not in octave!')
             return 0
 
+# This function is stolen, bit of a black box to me
 def get_adsr_weights(frequency, duration, length, decay, sustain_level, sample_rate=44100):
 
     assert abs(sum(length)-1) < 1e-8
@@ -73,7 +80,9 @@ def get_adsr_weights(frequency, duration, length, decay, sustain_level, sample_r
         weights = np.concatenate((weights, weights[-1]-weights[-1]/tail*np.arange(tail)))
     return weights
 
-def get_note(octave, note, duration = 0, beats = 0, bpm = 0, sample_rate=44100, amplitude=4096, save = False):
+# Gets the pure frequency of a note. No timbre
+def get_note(octave, note, duration = 0, beats = 0, bpm = 0, waveform = 'sine', 
+        harmonics = 10, sample_rate=44100, amplitude=4096, save = False):
     if duration == 0:
         duration = beats * (60 / bpm)
 
@@ -81,36 +90,78 @@ def get_note(octave, note, duration = 0, beats = 0, bpm = 0, sample_rate=44100, 
     freqs = []
     amps = []
 
-    fund = 7
-
-    for n in range(1,fund):
+    for n in range(1,harmonics):
         freqs.append((n + 1) * frequency)
         amps.append((0.5)**n * amplitude)
 
     t = np.linspace(0, duration, int(sample_rate*duration)) # Time axis
-    wave = amplitude*np.sin(2*np.pi*frequency*t)
 
-    for i in range(len(freqs)):
-        wave += amps[i]*np.sin(2*np.pi*freqs[i]*t)
+    if waveform == 'sine':
+        wave = amplitude*np.sin(2*np.pi*frequency*t)
 
-    if save:
-        wavfile.write(('' + str(note) + str(octave) + '.wav'), rate=44100, data=wave.astype(np.int16))
+        for i in range(len(freqs)):
+            wave += amps[i]*np.sin(2*np.pi*freqs[i]*t)
+    elif waveform == 'sawtooth':
+        wave = amplitude*signal.sawtooth(2 * np.pi * frequency * t)
+
+        for i in range(len(freqs)):
+            wave += amps[i]*signal.sawtooth(2 * np.pi * freqs[i] * t)
+    elif waveform == 'square':
+        wave = amplitude*signal.square(2*np.pi*frequency*t)
+
+        for i in range(len(freqs)):
+            wave += amps[i]*signal.square(2*np.pi*freqs[i]*t)
 
     return wave, frequency
 
-def piano(octave, note, duration, lens = [0.05, 0.25, 0.55, 0.15], save = False):
-    note, f = get_note(octave, note, duration, save = save)
+# Adds the timbre of a piano to the pure frequency
+class Note:
+    def __init__(self, note, octave, duration, waveform = 'sine', adsr = [0.05, 0.25, 0.55, 0.15], 
+            harmonics = 10, sustain_level = 0.1, decay = [0.085, 0.02, 0.005, 0.1], save = False):
+        # vvv This is important but you dont need to worry about it vvv
+        self.octave = octave
+        self.note = note
+        self.duration = duration
+        self.waveform = waveform
+        self.adsr = adsr
+        self.harmonics = harmonics
+        self.sustain_level = sustain_level
+        self.decay = decay
+        self.save = save
+        # ^^^ This stuff ^^^
 
-    weights = get_adsr_weights(f, duration, lens, 
-    return note
+        # This just gets us a raw pitch pipe note with no adsr
+        wav, f = get_note(self.octave, self.note, self.duration, 
+                waveform = self.waveform, harmonics = self.harmonics, save = self.save)
+        # This gets us the weights for the adsr
+        weights = get_adsr_weights(f, self.duration, self.adsr, decay = self.decay, 
+                sustain_level = self.sustain_level)
+    
+        # Multiply the wave by the weights and normalize amplitude to get the final thing
+        dat = wav * weights
+        dat = dat * (4096/np.max(dat))
 
-octave = int(input('Octave: '))
-note = str(input('Note: '))
-duration = int(input('Duration: '))
+        # If the user wants to save the wav, save the wav
+        if save:
+            wavfile.write(('' + str(note) + str(octave) + '.wav'), rate=44100, data=dat.astype(np.int16))
 
-w1 = piano(octave, note, duration, save = True)
-w2 = get_note(4, 'G', 4, save = True)
+        # Can now reference a note C4 with C4.wav to get the sine wave data
+        self.wav = dat
 
-fin = w1 + w2
+class Chord():
+    # args is a tuple with all the input variables
+    def __init__(self, *args):
+        dur = args[0].duration
+        self.wav = 44100*dur
 
-wavfile.write('firstchord.wav', rate=44100, data=fin.astype(np.int16))
+        # Just add the wave data for each chord inputted
+        for i in args:
+            self.wav += i.wav
+        
+
+C4 = Note('C', 4, 4)
+G4 = Note('G', 4, 4)
+
+C4G4 = Chord(C4, G4)
+
+wavfile.write('firstchord.wav', rate=44100, data=C4G4.wav.astype(np.int16))
