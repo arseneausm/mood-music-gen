@@ -141,9 +141,18 @@ class Note:
 
         self.wav = dat
 
-#notes = [['C', 3],['C',4],['G',4],['E',5],['B',5]]
-#fin = piano(notes, 4, harmonics = 10)
+class Chord():
+    def __init__(self, *args):
+        dur = args[0].duration
+        self.wav = 44100*dur
 
-fin = Note('C', 4, 4)
+        for i in args:
+            self.wav += i.wav
+        
 
-wavfile.write('firstchord.wav', rate=44100, data=fin.wav.astype(np.int16))
+C4 = Note('C', 4, 4)
+G4 = Note('G', 4, 4)
+
+C4G4 = Chord(C4, G4)
+
+wavfile.write('firstchord.wav', rate=44100, data=C4G4.wav.astype(np.int16))
