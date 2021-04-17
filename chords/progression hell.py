@@ -19,7 +19,27 @@ nameToNum = {'C': 0,
              'Cb': 11,
              'C2': 12
              }
+numToName = {0: 'C',
 
+             1: 'Db',
+             2: 'D',
+
+             3: 'Eb',
+             4: 'E',
+
+             5: 'F',
+             6: 'F#',
+
+             7: 'G',
+             8: 'G#',
+
+             9: 'A',
+
+             10: 'Bb',
+             11: 'B',
+
+             12: 'C2'
+             }
 majorScale = ['C', 'D', 'E', 'F', 'G', 'A', 'B', 'C2']
 minorScale = ['C', 'D', 'Eb', 'F', 'G', 'Ab', 'Bb', 'C2']
 
@@ -87,17 +107,19 @@ class Chord:
             i = noteIntervals.index(degree)
             if sharp:
                 self.notes[i].sharp()
+                return True
             else:
                 self.notes[i].flat()
+                return True
 
     def minor(self):
-        self.changeDegree(4, False)
+        return self.changeDegree(4, False)
         # if 11 in noteIntervals:
         #   i = noteIntervals.index(11)
         #  self.notes[i].flat()
 
     def major(self):
-        self.changeDegree(3, True)
+        return self.changeDegree(3, True)
         # if 10 in noteIntervals:
         #   i = noteIntervals.index(11)
         #   self.notes[i].sharp()
@@ -105,6 +127,7 @@ class Chord:
     def sus2(self):
         self.changeDegree(4, False)
         self.changeDegree(3, False)
+        # self.notes[1] = numToName[(root.toChromaticDegree + 2)]
 
     def sus4(self):
         self.changeDegree(4, True)
