@@ -40,8 +40,7 @@ numToName = {0: 'C',
 
              12: 'C2'
              }
-majorScale = ['C', 'D', 'E', 'F', 'G', 'A', 'B', 'C2']
-minorScale = ['C', 'D', 'Eb', 'F', 'G', 'Ab', 'Bb', 'C2']
+
 
 class Note:
     def __init__(self, noteName):
@@ -70,10 +69,56 @@ class Note:
         return (note2.noteNumber - note1.noteNumber) % 12
 
 
+modes = {1: [Note('C'), Note('D'), Note('E'), Note('F'), Note('G'), Note('A'), Note('B')],  # ionian/major
+         2: [Note('D'), Note('E'), Note('F'), Note('G'), Note('A'), Note('B'), Note('C')],  # dorian / minor-ish
+         3: [Note('E'), Note('F'), Note('G'), Note('A'), Note('B'), Note('C'), Note('D')],  # phrygian / minor-creepy
+         4: [Note('F'), Note('G'), Note('A'), Note('B'), Note('C'), Note('D'), Note('E')],  # lydian / major!
+         5: [Note('G'), Note('A'), Note('B'), Note('C'), Note('D'), Note('E'), Note('F')],  # mixolydian / major-minor
+         6: [Note('A'), Note('B'), Note('C'), Note('D'), Note('E'), Note('F'), Note('G')],  # aoelian / minor
+         7: [Note('B'), Note('C'), Note('D'), Note('E'), Note('F'), Note('G'), Note('A')],  # locrian / minor-creepy
+         }
+# modes go bright to dark (lower index : more "major")
+majorModes = [modes[4],  # lydian
+              modes[1],  # ionian
+              modes[5]  # mixolydian
+              ]
+
+# modes go bright to dark (higher index : much darker)
+minorModes = [modes[5],  # mixolydian
+              modes[2],  # dorian
+              modes[6],  # aoelian
+              modes[3],  # phrygian
+              modes[7]  # locrian
+              ]
+
+
 class Chord:
-    def __init__(self, notesArray):
-        self.notes = notesArray
-        self.root = notesArray[0]
+
+    def changeDegree(self, degree, sharp):
+        noteIntervals = self.get_intervals_in_chord()
+        if degree in noteIntervals:
+            i = noteIntervals.index(degree)
+            if sharp:
+                self.notes[i].sharp()
+                return True
+            else:
+                self.notes[i].flat()
+                return True
+
+    # ['C', 'D', 'E', 'F', 'G', 'A', 'B']
+    def __init__(self, modeNum, rootDegree, numNotes):
+        # rootDegree indexed at 1 (for the sake of ii VI I etc)
+        self.mode = modes[modeNum]
+        noteDegree = rootDegree - 1
+        self.root = self.mode[noteDegree]
+        self.notes = []
+        nextNote = self.mode[noteDegree]
+        for i in range(numNotes):
+            self.notes.append(nextNote)
+            noteDegree = (noteDegree + 2) % 7
+            nextNote = self.mode[noteDegree]
+        if rootDegree == 7:
+            self.changeDegree(7, False)
 
     def __str__(self):
         chordString = ''
@@ -101,17 +146,6 @@ class Chord:
                 newChord.append(note.flat())
         return newChord
 
-    def changeDegree(self, degree, sharp):
-        noteIntervals = self.get_intervals_in_chord()
-        if degree in noteIntervals:
-            i = noteIntervals.index(degree)
-            if sharp:
-                self.notes[i].sharp()
-                return True
-            else:
-                self.notes[i].flat()
-                return True
-
     def minor(self):
         return self.changeDegree(4, False)
         # if 11 in noteIntervals:
@@ -137,11 +171,12 @@ class Chord:
     # def addSeventh(self):
     #    self.notes.append()
 
-c = Chord([Note('C'), Note('E'), Note('G')]) # C E G
-#chordIII = chordI.transposeUp(4).minor() # E G B
-#chordIV = chordI.transposeUp(5).major() # F A C
-#chordV = chordI.transposeUp(7).major() # G B D
-#chordVI = chordI.transposeUp(9).minor() # A C E
+
+c = Chord(1, 1, 5)  # C E G
+# chordIII = chordI.transposeUp(4).minor() # E G B
+# chordIV = chordI.transposeUp(5).major() # F A C
+# chordV = chordI.transposeUp(7).major() # G B D
+# chordVI = chordI.transposeUp(9).minor() # A C E
 
 
 # notesList = [Note('C'), Note('Eb'), Note('G')]
@@ -154,6 +189,7 @@ c = Chord([Note('C'), Note('E'), Note('G')]) # C E G
 # print Cmaj7
 
 # I chord
+
 print c
 # ii chord
 c.transposeUp(2)
@@ -176,6 +212,5 @@ print c
 # vii
 c.transposeUp(2)
 c.minor()
-c.changeDegree(7, False)
 print c
 
