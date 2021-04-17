@@ -118,9 +118,9 @@ class Chord:
                 return True
 
     # ['C', 'D', 'E', 'F', 'G', 'A', 'B']
-    def __init__(self, modeNum, numNotes, rootDegree):
+    def __init__(self, mode, numNotes, rootDegree):
         # rootDegree indexed at 1 (for the sake of ii VI I etc)
-        self.mode = modes[modeNum]
+        self.mode = mode
         noteDegree = rootDegree - 1
         self.root = self.mode[noteDegree]
         self.notes = []
@@ -186,18 +186,18 @@ class Chord:
         self.change_degree(3, True)
 
 
-moodMod1Dict = {"happy": random.choice([majorModes[0], majorModes[1]]),
+moodMod1Dict = {'happy': random.choice([majorModes[0], majorModes[1]]),
                 }
-moodMod2Dict = {"sleepy": [8,  # numChords
-                           3  # degreeStart
-                           ]
+moodMod2Dict = {'blue': [8,  # numChords
+                         3   # degreeStart
+                        ]
                 }
-moodMod3Dict = {"spicy": [[4, 5, 6],  # numNotesRange
+moodMod3Dict = {'spicy': [[4, 5, 6],  # numNotesRange
                           0.75,  # chance for accidentals
                           5,  # weight for mode degrees
                           [2, 5, 6, 7]  # mode degrees to weight
                           ],
-                "salt": [[2, 3],  # numNotesRange
+                'salt': [[2, 3],  # numNotesRange
                          0,  # chance for accidentals
                          0,  # weight for mode degrees
                          []  # mode degrees to weight
@@ -218,20 +218,20 @@ class Progression:
         weightedModeDegrees = [1, 1, 2, 3, 4, 5, 6, 7]
         self.degreeSequence = []
 
-        self.numChords = moodMod2Dict[moodMod2[0]]
-        self.degreeSequence.append(moodMod2Dict[moodMod2[1]])
+        self.numChords = moodMod2Dict[moodMod2][0]
+        self.degreeSequence.append(moodMod2Dict[moodMod2][1])
 
-        self.numNotesRange = moodMod3Dict[moodMod3[0]]
-        self.chanceForAccidentals = moodMod3Dict[moodMod3[1]]
-        self.weight = moodMod3Dict[moodMod3[2]]
-        self.degreesToWeight = moodMod3Dict[moodMod3[3]]
+        self.numNotesRange = moodMod3Dict[moodMod3][0]
+        self.chanceForAccidentals = moodMod3Dict[moodMod3][1]
+        self.weight = moodMod3Dict[moodMod3][2]
+        self.degreesToWeight = moodMod3Dict[moodMod3][3]
         for i in range(self.weight):
-            for d in range(self.degreesToWeight):
-                weightedModeDegrees.append(moodMod3Dict[moodMod3[3][d]])
+            for d in range(len(self.degreesToWeight)):
+                weightedModeDegrees.append(moodMod3Dict[moodMod3][3][d])
 
         # add new chord
         for i in range(self.numChords):
-            self.chords.append(self.gen_chord(self.degreeSequence[i]))
+            self.chordSequence.append(self.gen_chord(self.degreeSequence[i]))
             self.degreeSequence.append(random.choice(weightedModeDegrees))
 
     def __str__(self):
@@ -267,8 +267,8 @@ class Progression:
 # print rootChord
 # tempChord = Chord(1, 3, 1)
 
-moodMod1 = "happy"
-moodMod2 = "sleepy"
-moodMod3 = "spicy"
+moodMod1 = 'happy'
+moodMod2 = 'blue'
+moodMod3 = 'spicy'
 
 testProgression = Progression(moodMod1, moodMod2, moodMod3)
