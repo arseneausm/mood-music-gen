@@ -200,7 +200,7 @@ class Chord:
 
 
 vibeDict = {  # vibe -- target at night, summer breeze (lydian),
-    # ihop commercial (ionian), smoky jazz lounge (mixolydian), edgy teenager,
+    # ihop commercial (ionian), smoky jazz lounge (mixolydian),
     # sunglasses and a mustache (dorian), ancient ritual (phrygian), demon palace DO NOT TOUCH! (locrian)
     # eating ice cream in the shower (aoleian)
     'ihop commercial':
@@ -224,8 +224,8 @@ vibeDict = {  # vibe -- target at night, summer breeze (lydian),
     'denny\'s at 2am':     # locrian
         modes[7],
 
-
 }
+
 moodDict = {  # mood
     # porcelain, beige, marigold, cherry, mahogany, bubblegum, boysenberry, sapphire, chartreuse, onyx
     'porcelain':
