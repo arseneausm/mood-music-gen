@@ -147,3 +147,7 @@ c.minor()
 c.changeDegree(7, False)
 print c
 
+c.minor()
+c.changeDegree(7, False)
+print c
+
