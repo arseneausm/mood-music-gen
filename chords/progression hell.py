@@ -152,7 +152,7 @@ class Chord:
         return voicing
 
     def __eq__(self, other):
-        for i in range(len(self.notes)):
+        for i in range(3):
             if self.notes[i] != other.notes[i]:
                 return False
         return True
@@ -253,6 +253,7 @@ moodDict = {  # mood
          [1, 1, 5, 5, 1, 5, 4, 5, 4]  # mode degrees to weight
          ],
 }
+
 spiceDict = {  # spice
     # chili powder, garam masala, ginger, cinnamon, pepper, coriander, msg, paprika, salt, oregano, saffron, sugar
     'sugar':
@@ -334,14 +335,18 @@ class Progression:
 
         # add new chord
         lastChord = self.gen_chord(self.degreeSequence[0])
-        for i in range(self.numChords):
+        i = 0
+        while i <= self.numChords:
             nextChord = self.gen_chord(self.degreeSequence[i])
-            if nextChord != lastChord:
+            if not nextChord == lastChord:
                 self.chordSequence.append(nextChord)
                 lastChord = nextChord
+                i = i + 1
             self.degreeSequence.append(random.choice(weightedModeDegrees))
 
-        self.chordSequence.append(Chord(self.modeUsed, self.numNotes, 1))
+
+
+        # self.chordSequence.append(Chord(self.modeUsed, self.numNotes, 1))
 
     def __str__(self):
         chords = ''
@@ -363,6 +368,7 @@ class Progression:
                 degreeToChange = random.choice([3, 8, 10])
             copyChord.change_degree(degreeToChange, sharpenNote)
             # chord.change_degree(degreeToChange, not sharpenNote)
+        # print 11 in copyChord.get_intervals_in_chord()
 
         return copyChord
 
@@ -372,9 +378,8 @@ class Progression:
     def voice_leading(self, chords):
         self.chords = []
         for i in (range(len(chords)) - 1):
-            self.chords.append(chords[i].voiced(i + 1))
+            self.chords.append(chords[i].voiced(chords[i + 1]))
         pass
-
 
 # c1 = Chord(1, 4, 2)  # D F A C
 # c2 = Chord(1, 4, 5)  # G B D F
@@ -395,3 +400,13 @@ spice1 = random.choice(spiceDict.keys())  # 'chili powder'
 testProgression = Progression(vibe1, mood1, spice1)
 print "Here's a little something inspired by a " + mood1 + " " + vibe1 + " with " + spice1 + ".\n"
 print testProgression
+
+c1 = Chord(modes[1],3, 3)
+print c1
+
+c2 = Chord(modes[1],3, 4)
+c2.copy_of(c1)
+print c2
+
+print not c1 == c2
+print c1.__eq__(c2)
