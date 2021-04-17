@@ -116,36 +116,45 @@ def get_note(octave, note, duration = 0, beats = 0, bpm = 0, waveform = 'sine',
 
 # Adds the timbre of a piano to the pure frequency
 class Note:
-    def __init__(self, note, octave, duration, waveform = 'sine', lens = [0.05, 0.25, 0.55, 0.15], 
+    def __init__(self, note, octave, duration, waveform = 'sine', adsr = [0.05, 0.25, 0.55, 0.15], 
             harmonics = 10, sustain_level = 0.1, decay = [0.085, 0.02, 0.005, 0.1], save = False):
+        # vvv This is important but you dont need to worry about it vvv
         self.octave = octave
         self.note = note
         self.duration = duration
         self.waveform = waveform
-        self.lens = lens
+        self.adsr = adsr
         self.harmonics = harmonics
         self.sustain_level = sustain_level
         self.decay = decay
         self.save = save
+        # ^^^ This stuff ^^^
 
+        # This just gets us a raw pitch pipe note with no adsr
         wav, f = get_note(self.octave, self.note, self.duration, 
                 waveform = self.waveform, harmonics = self.harmonics, save = self.save)
-        weights = get_adsr_weights(f, self.duration, self.lens, decay = self.decay, 
+        # This gets us the weights for the adsr
+        weights = get_adsr_weights(f, self.duration, self.adsr, decay = self.decay, 
                 sustain_level = self.sustain_level)
     
+        # Multiply the wave by the weights and normalize amplitude to get the final thing
         dat = wav * weights
         dat = dat * (4096/np.max(dat))
 
+        # If the user wants to save the wav, save the wav
         if save:
             wavfile.write(('' + str(note) + str(octave) + '.wav'), rate=44100, data=dat.astype(np.int16))
 
+        # Can now reference a note C4 with C4.wav to get the sine wave data
         self.wav = dat
 
 class Chord():
+    # args is a tuple with all the input variables
     def __init__(self, *args):
         dur = args[0].duration
         self.wav = 44100*dur
 
+        # Just add the wave data for each chord inputted
         for i in args:
             self.wav += i.wav
         
