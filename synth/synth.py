@@ -115,27 +115,35 @@ def get_note(octave, note, duration = 0, beats = 0, bpm = 0, waveform = 'sine',
     return wave, frequency
 
 # Adds the timbre of a piano to the pure frequency
-def piano(notes, duration, waveform = 'sine', lens = [0.05, 0.25, 0.55, 0.15], 
-        harmonics = 10, sustain_level = 0.1, decay = [0.085, 0.02, 0.005, 0.1], save = False):
+class Note:
+    def __init__(self, note, octave, duration, waveform = 'sine', lens = [0.05, 0.25, 0.55, 0.15], 
+            harmonics = 10, sustain_level = 0.1, decay = [0.085, 0.02, 0.005, 0.1], save = False):
+        self.octave = octave
+        self.note = note
+        self.duration = duration
+        self.waveform = waveform
+        self.lens = lens
+        self.harmonics = harmonics
+        self.sustain_level = sustain_level
+        self.decay = decay
+        self.save = save
 
-    fin = np.zeros(duration * 44100)
-
-    for i in range(len(notes)):
-        wav, f = get_note(notes[i][1], notes[i][0], duration, waveform = waveform, harmonics = harmonics, save = save)
-
-        weights = get_adsr_weights(f, duration, lens, decay = decay, sustain_level = sustain_level)
+        wav, f = get_note(self.octave, self.note, self.duration, 
+                waveform = self.waveform, harmonics = self.harmonics, save = self.save)
+        weights = get_adsr_weights(f, self.duration, self.lens, decay = self.decay, 
+                sustain_level = self.sustain_level)
     
         dat = wav * weights
         dat = dat * (4096/np.max(dat))
 
-        fin += dat
+        if save:
+            wavfile.write(('' + str(note) + str(octave) + '.wav'), rate=44100, data=dat.astype(np.int16))
 
-    if save:
-        wavfile.write(('' + str(note) + str(octave) + '.wav'), rate=44100, data=fin.astype(np.int16))
+        self.wav = dat
 
-    return fin
+#notes = [['C', 3],['C',4],['G',4],['E',5],['B',5]]
+#fin = piano(notes, 4, harmonics = 10)
 
-notes = [['C', 3],['C',4],['G',4],['E',5],['B',5]]
-fin = piano(notes, 4, harmonics = 10)
+fin = Note('C', 4, 4)
 
-wavfile.write('firstchord.wav', rate=44100, data=fin.astype(np.int16))
+wavfile.write('firstchord.wav', rate=44100, data=fin.wav.astype(np.int16))
