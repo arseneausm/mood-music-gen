@@ -20,6 +20,8 @@ nameToNum = {'C': 0,
              'C2': 12
              }
 
+majorScale = ['C', 'D', 'E', 'F', 'G', 'A', 'B', 'C2']
+minorScale = ['C', 'D', 'Eb', 'F', 'G', 'Ab', 'Bb', 'C2']
 
 class Note:
     def __init__(self, noteName):
@@ -80,10 +82,6 @@ class Chord:
         return newChord
 
     def changeDegree(self, degree, sharp):
-        """
-
-        :rtype: void
-        """
         noteIntervals = self.get_intervals_in_chord()
         if degree in noteIntervals:
             i = noteIntervals.index(degree)
@@ -104,6 +102,17 @@ class Chord:
         #   i = noteIntervals.index(11)
         #   self.notes[i].sharp()
 
+    def sus2(self):
+        self.changeDegree(4, False)
+        self.changeDegree(3, False)
+
+    def sus4(self):
+        self.changeDegree(4, True)
+        self.changeDegree(3, True)
+
+    # TODO
+    # def addSeventh(self):
+    #    self.notes.append()
 
 c = Chord([Note('C'), Note('E'), Note('G')]) # C E G
 #chordIII = chordI.transposeUp(4).minor() # E G B
@@ -143,10 +152,6 @@ c.minor()
 print c
 # vii
 c.transposeUp(2)
-c.minor()
-c.changeDegree(7, False)
-print c
-
 c.minor()
 c.changeDegree(7, False)
 print c
