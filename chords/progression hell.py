@@ -72,20 +72,34 @@ class Chord:
                 newChord.append(note.sharp())
         return newChord
 
-    def minor(self):
+    def transposeDown(self, steps):
+        newChord = []
+        for note in self.notes:
+            for i in range(steps):
+                newChord.append(note.flat())
+        return newChord
+
+    def changeDegree(self, degree, sharp):
+        """
+
+        :rtype: void
+        """
         noteIntervals = self.get_intervals_in_chord()
-        if 4 in noteIntervals:
-            i = noteIntervals.index(4)
-            self.notes[i].flat()
+        if degree in noteIntervals:
+            i = noteIntervals.index(degree)
+            if sharp:
+                self.notes[i].sharp()
+            else:
+                self.notes[i].flat()
+
+    def minor(self):
+        self.changeDegree(4, False)
         # if 11 in noteIntervals:
         #   i = noteIntervals.index(11)
         #  self.notes[i].flat()
 
     def major(self):
-        noteIntervals = self.get_intervals_in_chord()
-        if 3 in noteIntervals:
-            i = noteIntervals.index(4)
-            self.notes[i].sharp()
+        self.changeDegree(3, True)
         # if 10 in noteIntervals:
         #   i = noteIntervals.index(11)
         #   self.notes[i].sharp()
@@ -129,3 +143,7 @@ c.minor()
 print c
 # vii
 c.transposeUp(2)
+c.minor()
+c.changeDegree(7, False)
+print c
+
