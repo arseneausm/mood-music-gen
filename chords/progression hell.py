@@ -114,10 +114,10 @@ class Chord:
         if degree in noteIntervals:
             i = noteIntervals.index(degree)
             if sharp:
-                self.notes[i].sharpen()
+                self.notes[i] = self.notes[i].sharp()
                 return True
             else:
-                self.notes[i].flatten()
+                self.notes[i] = self.notes[i].flat()
                 return True
 
     # ['C', 'D', 'E', 'F', 'G', 'A', 'B']
@@ -199,53 +199,149 @@ class Chord:
         self.change_degree(3, True)
 
 
-moodMod1Dict = {'happy': random.choice([majorModes[0], majorModes[1]]),
-                }
-moodMod2Dict = {'blue': [8,  # numChords
-                         3   # degreeStart
-                        ]
-                }
-moodMod3Dict = {'spicy': [[4, 5, 6],  # numNotesRange
-                          0.3,  # chance for accidentals
-                          5,  # weight for mode degrees
-                          [2, 5, 6, 7]  # mode degrees to weight
-                          ],
-                'salt': [[2, 3],  # numNotesRange
-                         0,  # chance for accidentals
-                         0,  # weight for mode degrees
-                         []  # mode degrees to weight
-                         ],
-                }
+vibeDict = {  # vibe -- target at night, summer breeze (lydian),
+    # ihop commercial (ionian), smoky jazz lounge (mixolydian), edgy teenager,
+    # sunglasses and a mustache (dorian), ancient ritual (phrygian), demon palace DO NOT TOUCH! (locrian)
+    # eating ice cream in the shower (aoleian)
+    'ihop commercial':
+        modes[1],
+
+    'sunglasses and a mustache':  # dorian
+        modes[2],
+
+    'ancient ritual':  # phrygian
+        modes[3],
+
+    'summer breeze':
+        modes[4],
+
+    'smoky jazz lounge':  # mixo
+        modes[5],
+
+    'eating ice cream in the shower':
+        modes[6],
+
+    'denny\'s at 2am':     # locrian
+        modes[7],
+
+
+}
+moodDict = {  # mood
+    # porcelain, beige, marigold, cherry, mahogany, bubblegum, boysenberry, sapphire, chartreuse, onyx
+    'porcelain':
+        [4,  # numChords
+         4,  # degreeStart
+         4,  # weight for mode degrees
+         [4, 5, 5, 6, 1, 4, 1]  # mode degrees to weight
+         ],
+    'beige':
+        [4,  # numChords
+         2,  # degreeStart
+         6,  # weight for mode degrees
+         [1, 2, 5, 1, 1]  # mode degrees to weight
+         ],
+    'marigold':
+        [6,  # numChords
+         3,  # degreeStart
+         2,  # weight for mode degrees
+         [3, 3, 6, 5, 1]  # mode degrees to weight
+         ],
+    'cherry':
+        [4,  # numChords
+         1,  # degreeStart
+         6,  # weight for mode degrees
+         [1, 1, 5, 5, 1, 5, 4, 5, 4]  # mode degrees to weight
+         ],
+}
+spiceDict = {  # spice
+    # chili powder, garam masala, ginger, cinnamon, pepper, coriander, msg, paprika, salt, oregano, saffron, sugar
+    'sugar':
+        [[2, 3, 3, 4, 4],  # numNotesRange
+         0.08,  # chance for accidentals
+         ],
+    'saffron':
+        [[2, 3, 3, 3, 4],  # numNotesRange
+         0.16,  # chance for accidentals
+         ],
+    'oregano':
+        [[2, 3, 3, 3, 4, 5],  # numNotesRange
+         0.24,  # chance for accidentals
+         ],
+    'salt':
+        [[3, 3, 3, 4, 4],  # numNotesRange
+         0.32,  # chance for accidentals
+         ],
+    'paprika':
+        [[2, 3, 4, 4, 4, 5],  # numNotesRange
+         0.40,  # chance for accidentals
+         ],
+    'msg':
+        [[4, 3],  # numNotesRange
+         0.48,  # chance for accidentals
+         ],
+    'coriander':
+        [[3, 4, 5],  # numNotesRange
+         0.56,  # chance for accidentals
+         ],
+    'pepper':
+        [[3, 3, 4, 5, 6],  # weighted numNotesRange
+         0.64,  # chance for accidentals
+         ],
+    'cinnamon':
+        [[3, 4, 4, 6, 5],  # numNotesRange
+         0.72,  # chance for accidentals
+         ],
+    'ginger':
+        [[3, 4, 4, 5, 5],  # numNotesRange
+         0.8,  # chance for accidentals
+         ],
+    'garam masala':
+        [[3, 4, 4, 4, 5, 6, 6, 7],  # numNotesRange
+         0.88,  # chance for accidentals
+         ],
+    'chili powder':
+        [[4, 4, 5, 5, 5, 6, 7],  # numNotesRange
+         0.96,  # chance for accidentals
+         ],
+    # coriander, saffron, paprika, oregano, msg, cinnamon, garam masala,
+    # chili powder, garam masala, ginger, cinnamon, pepper, coriander, msg, paprika, salt, oregano, saffron, sugar
+}
 
 
 class Progression:
 
     def __init__(self,
-                 moodMod1,
-                 moodMod2,
-                 moodMod3):
+                 mood_mod1,
+                 mood_mod2,
+                 mood_mod3):
         self.chordSequence = []
-        self.modeUsed = moodMod1Dict[moodMod1]
+        self.modeUsed = vibeDict[mood_mod1]
         self.numNotes = None
         self.numNotesRange = [3]
         weightedModeDegrees = [1, 1, 2, 3, 4, 5, 6, 7]
         self.degreeSequence = []
 
-        self.numChords = moodMod2Dict[moodMod2][0]
-        self.degreeSequence.append(moodMod2Dict[moodMod2][1])
+        self.numChords = moodDict[mood_mod2][0]
+        self.degreeSequence.append(moodDict[mood_mod2][1])
 
-        self.numNotesRange = moodMod3Dict[moodMod3][0]
-        self.chanceForAccidentals = moodMod3Dict[moodMod3][1]
-        self.weight = moodMod3Dict[moodMod3][2]
-        self.degreesToWeight = moodMod3Dict[moodMod3][3]
+        self.numNotesRange = spiceDict[mood_mod3][0]
+        self.chanceForAccidentals = spiceDict[mood_mod3][1]
+        self.weight = moodDict[mood_mod2][2]
+        self.degreesToWeight = moodDict[mood_mod2][3]
         for i in range(self.weight):
             for d in range(len(self.degreesToWeight)):
-                weightedModeDegrees.append(moodMod3Dict[moodMod3][3][d])
+                weightedModeDegrees.append(moodDict[mood_mod2][3][d])
 
         # add new chord
+        lastChord = self.gen_chord(self.degreeSequence[0])
         for i in range(self.numChords):
-            self.chordSequence.append(self.gen_chord(self.degreeSequence[i]))
+            nextChord = self.gen_chord(self.degreeSequence[i])
+            if nextChord != lastChord:
+                self.chordSequence.append(nextChord)
+                lastChord = nextChord
             self.degreeSequence.append(random.choice(weightedModeDegrees))
+
+        self.chordSequence.append(Chord(self.modeUsed, self.numNotes, 1))
 
     def __str__(self):
         chords = ''
@@ -254,11 +350,21 @@ class Progression:
         return chords
 
     def gen_chord(self, degree):
+        sharpenNote = True
         self.numNotes = random.choice(self.numNotesRange)
         chord = Chord(self.modeUsed, self.numNotes, degree)
+        copyChord = Chord(self.modeUsed, 1, 1)
+        copyChord.copy_of(chord)
         if random.random() <= self.chanceForAccidentals:
-            chord.major_minor_switch()
-        return chord
+            degreeToChange = random.choice([4, 3, 9, 8, 10, 11])
+            if degreeToChange == 4 or degreeToChange == 9 or degreeToChange == 11:
+                sharpenNote = False
+            else:
+                degreeToChange = random.choice([3, 8, 10])
+            copyChord.change_degree(degreeToChange, sharpenNote)
+            # chord.change_degree(degreeToChange, not sharpenNote)
+
+        return copyChord
 
     # TODO
     # chords = an array of chords
@@ -282,9 +388,10 @@ class Progression:
 # print rootChord
 # tempChord = Chord(1, 3, 1)
 
-moodMod1 = 'happy'
-moodMod2 = 'blue'
-moodMod3 = 'salt'
+vibe1 = random.choice(vibeDict.keys())  # 'ihop commercial'
+mood1 = random.choice(moodDict.keys())  # 'porcelain'
+spice1 = random.choice(spiceDict.keys())  # 'chili powder'
 
-testProgression = Progression(moodMod1, moodMod2, moodMod3)
+testProgression = Progression(vibe1, mood1, spice1)
+print "Here's a little something inspired by a " + mood1 + " " + vibe1 + " with " + spice1 + ".\n"
 print testProgression
