@@ -248,8 +248,10 @@ class Progression:
             self.degreeSequence.append(random.choice(weightedModeDegrees))
 
     def __str__(self):
+        chords = ''
         for chord in self.chordSequence:
-            print str(chord)
+            chords = chords + str(chord) + '\n'
+        return chords
 
     def gen_chord(self, degree):
         self.numNotes = random.choice(self.numNotesRange)
