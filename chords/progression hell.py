@@ -52,6 +52,9 @@ class Note:
     def __str__(self):
         return self.noteName
 
+    def __eq__(self, other):
+        return self.noteNumber == other.noteNumber
+
     @classmethod
     def to_chromatic_degree(cls, noteName):
         return nameToNum[noteName]
@@ -125,13 +128,17 @@ class Chord:
         self.root = self.mode[noteDegree]
         self.notes = []
         nextNote = self.mode[noteDegree]
+
         for i in range(numNotes):
             nextNote = self.mode[noteDegree]
             if nextNote not in self.notes:
                 self.notes.append(nextNote)
             else:
                 return
-            noteDegree = (noteDegree + 2) % 7
+            if numNotes == 2:
+                noteDegree = (noteDegree + 4) % 7
+            else:
+                noteDegree = (noteDegree + 2) % 7
 
     def copy_of(self, template):
         self.mode = template.mode
@@ -143,6 +150,12 @@ class Chord:
         for note in self.notes:
             voicing = voicing + str(note) + ' '
         return voicing
+
+    def __eq__(self, other):
+        for i in range(len(self.notes)):
+            if self.notes[i] != other.notes[i]:
+                return False
+        return True
 
     def add_note(self, noteToAdd):
         if noteToAdd not in self.notes:
@@ -193,7 +206,7 @@ moodMod2Dict = {'blue': [8,  # numChords
                         ]
                 }
 moodMod3Dict = {'spicy': [[4, 5, 6],  # numNotesRange
-                          0.75,  # chance for accidentals
+                          0.3,  # chance for accidentals
                           5,  # weight for mode degrees
                           [2, 5, 6, 7]  # mode degrees to weight
                           ],
@@ -269,6 +282,7 @@ class Progression:
 
 moodMod1 = 'happy'
 moodMod2 = 'blue'
-moodMod3 = 'spicy'
+moodMod3 = 'salt'
 
 testProgression = Progression(moodMod1, moodMod2, moodMod3)
+print testProgression
