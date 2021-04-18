@@ -1,10 +1,10 @@
 import progression_producer
 import synth
 
-vibe = raw_input("Pick a vibe\n")
-print ("You picked: " + vibe)
-mood = raw_input("Pick a mood\n")
-spice = raw_input("Pick a spice\n")
+vibe = 'ihop commercial'  # raw_input("Pick a vibe\n")
+# print ("You picked: " + vibe)
+mood = 'onyx'  # raw_input("Pick a mood\n")
+spice = 'chili powder'  # raw_input("Pick a spice\n")
 
 output = progression_producer.Progression(vibe, mood, spice)
 print output
@@ -18,6 +18,6 @@ for chord in output.chordSequence:
         noteName = note.noteName
         synthNote = synth.Note(noteName, octave, duration)
         synthNotesList.append(synthNote)
-    synthChord = synth.Chord()
+    synthChord = synth.Chord([synthNotesList])
 
 
