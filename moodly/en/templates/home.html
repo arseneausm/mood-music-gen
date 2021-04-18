@@ -5,19 +5,24 @@
 {% load crispy_forms_tags %}
 {% load static %}
 <style>
-	.box {
-        width: 120px;
-        height: 30px;
-        border: 1px solid #999;
-        font-size: 18px;
-        color: #1c87c9;
-        background-color: #eee;
-        border-radius: 5px;
-        box-shadow: 4px 4px #ccc;
-      }
+	.box .select{
+  width: 120%;
+}
+
+.box .select select{
+  background: transparent;
+  line-height: 1;
+  border: 0;
+  padding: 0;
+  border-radius: 0;
+  width: 120%;
+  position: relative;
+  z-index: 10;
+  font-size: 1em;
+}
 </style>
 <center>
-<form action = "" method = "get" id="center">
+<form action = "" method = "get" id="center" name="box">
     <select class="box" name="vibe" id="center">
     	<option value="summer-breeze">summer breeze</option>
     	<option value="ihop-commercial">ihop commercial</option>

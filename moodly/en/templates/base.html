@@ -12,13 +12,21 @@
 	
 	<img src="{% static "img/how-are-you-feeling1.png" %}" class="center">
 
+	<br><br>
+  	<br>
+
   	<!--<img src="{% static "img/background.gif" %}" alt="My image">-->
 
   	{% block content %} {% endblock %}
 
+  	<br><br>
+  	<br><br>
+
+  	<center>
   	<audio controls>
-         <source src = "{% static "player.wav" %}" type = "audio/mpeg">
+         <source src = "{% static "player.wav" %}" id="center" type = "audio/mpeg">
     </audio>
+	</center>
 
 </body>
 </html>

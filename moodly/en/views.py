@@ -9,17 +9,17 @@ from scipy.io import wavfile
 def index(request):
 	a = request.GET
 
-	v = a['vibe']
-	m = a['mood']
-	s = a['spice']
+	#v = a['vibe']
+	#m = a['mood']
+	#s = a['spice']
 
-	prog = synthesize(v, m, s)
+	#prog = synthesize(v, m, s)
 
-	wavfile.write((settings.MEDIA_ROOT + '/player.wav'), 44100, prog)
+	#wavfile.write((settings.MEDIA_ROOT + '/player.wav'), 44100, prog)
 
-	context = {
-		'path' : settings.MEDIA_ROOT + 'player.wav'
-	}
+	#context = {
+	#	'path' : settings.MEDIA_ROOT + 'player.wav'
+	#}
 
     # logic of view will be implemented here
-	return render(request, "home.html", context)
+	return render(request, "home.html")
