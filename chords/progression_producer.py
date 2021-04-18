@@ -199,6 +199,40 @@ class Chord:
         self.change_degree(3, True)
 
 
+def voiced(currentChord, lastChord):
+    voicedChord = []
+    destNotes = currentChord.notes
+    sourceNotes = lastChord.notes
+    i = 0
+    matrix = []
+    for s_note in sourceNotes:
+        v = []
+        for d_note in destNotes:
+            min_distance = min(abs(d_note.noteNumber - s_note.noteNumber), 12 - abs(d_note.noteNumber - s_note.noteNumber))
+            v.append(min_distance)
+        matrix.append(v)
+    print matrix
+    mapMinDict = {}
+    for j in range(len(matrix[0])):
+        standing_min = 12
+        min_index = -1
+        for i in range(len(matrix)):
+            if matrix[i][j] < standing_min:
+                min_index = i
+                standing_min = matrix[i][j]
+                # TODO if matrix[i][j] == standing_min, add to an array of min_indexes
+        mapMinDict[j] = min_index
+    print mapMinDict
+    voicedChordRef = mapMinDict.items()
+    voicedChordRef = sorted(voicedChordRef, key = lambda x: x[1])
+    voicedChordRef = [x[0] for x in voicedChordRef]
+    print voicedChordRef
+    for num in voicedChordRef:
+        note = destNotes[num]
+        voicedChord.append(str(note))
+    return voicedChord
+
+
 vibeDict = {  # vibe -- target at night, summer breeze (lydian),
     # ihop commercial (ionian), smoky jazz lounge (mixolydian),
     # sunglasses and a mustache (dorian), ancient ritual (phrygian), demon palace DO NOT TOUCH! (locrian)
@@ -397,16 +431,14 @@ vibe1 = random.choice(vibeDict.keys())  # 'ihop commercial'
 mood1 = random.choice(moodDict.keys())  # 'porcelain'
 spice1 = random.choice(spiceDict.keys())  # 'chili powder'
 
-testProgression = Progression(vibe1, mood1, spice1)
-print "Here's a little something inspired by a " + mood1 + " " + vibe1 + " with " + spice1 + ".\n"
-print testProgression
+# testProgression = Progression(vibe1, mood1, spice1)
+# print "Here's a little something inspired by a " + mood1 + " " + vibe1 + " with " + spice1 + ".\n"
+# print testProgression
 
-c1 = Chord(modes[1],3, 3)
+c1 = Chord(modes[1], 4, 2)
+c2 = Chord(modes[1], 3, 1)
 print c1
-
-c2 = Chord(modes[1],3, 4)
-c2.copy_of(c1)
 print c2
 
-print not c1 == c2
-print c1.__eq__(c2)
+voicedChordTest = voiced(c2, c1)
+print voicedChordTest
