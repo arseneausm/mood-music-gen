@@ -117,7 +117,7 @@ def get_note(octave, note, duration = 0, beats = 0, bpm = 0, waveform = 'sine',
 # Adds the timbre of a piano to the pure frequency
 class Note:
     def __init__(self, note, octave, duration, waveform = 'sine', adsr = [0.05, 0.25, 0.55, 0.15], 
-            harmonics = 10, sustain_level = 0.1, decay = [0.085, 0.02, 0.005, 0.1], save = False):
+            harmonics = 10, sustain_level = 0.1, decay = [0.08, 0.02, 0, 0.1], save = False):
         # vvv This is important but you dont need to worry about it vvv
         self.octave = octave
         self.note = note
