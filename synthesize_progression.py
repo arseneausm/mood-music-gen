@@ -13,14 +13,15 @@ output = progression_producer.Progression(vibe, mood, spice)
 print(output)
 
 octave = 4
-duration = 4
+duration = 10
 synthChords = np.zeros(((duration * 44100)))
+chordDuration = duration / len(output.chordSequence)
 
 for chord in output.chordSequence:
     synthNotesList = []
     for note in chord.notes:
         noteName = note.noteName
-        synthNote = synth.Note(noteName, octave, duration/len(output.chordSequence))
+        synthNote = synth.Note(noteName, octave, chordDuration)
         synthNotesList.append(synthNote)
     synthChords = synthChords + synth.Chord(synthNotesList).wav
 
