@@ -4,16 +4,17 @@ import progression_producer
 import synth
 import numpy as np
 
-vibe = 'ihop commercial'  # raw_input("Pick a vibe\n")
+vibe = 'demon-palace'  # raw_input("Pick a vibe\n")
 # print ("You picked: " + vibe)
-mood = 'mahogany'  # raw_input("Pick a mood\n")
-spice = 'salt'  # raw_input("Pick a spice\n")
+mood = 'porcelain'  # raw_input("Pick a mood\n")
+spice = 'coriander'  # raw_input("Pick a spice\n")
+
 
 output = progression_producer.Progression(vibe, mood, spice)
 print(output)
 
 octave = 4
-duration = 100
+duration = 20
 chordDuration = duration / len(output.chordSequence)
 synthChords = np.zeros((int(chordDuration * 44100)))
 

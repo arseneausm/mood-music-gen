@@ -155,8 +155,13 @@ class Chord:
         return voicing
 
     def __eq__(self, other):
-        for i in range(3):
-            if self.notes[i] != other.notes[i]:
+        chordLength = 2
+        if len(self.notes) < len(other.notes):
+            chordLength = len(self.notes)
+        else:
+            chordLength = len(other.notes)
+        for i in range(chordLength):
+            if not self.notes[i] == other.notes[i]:
                 return False
         return True
 
@@ -240,25 +245,25 @@ vibeDict = {  # vibe -- target at night, summer breeze (lydian),
     # ihop commercial (ionian), smoky jazz lounge (mixolydian),
     # sunglasses and a mustache (dorian), ancient ritual (phrygian), demon palace DO NOT TOUCH! (locrian)
     # eating ice cream in the shower (aoleian)
-    'ihop commercial':
+    'ihop-commercial':
         modes[1],
 
-    'sunglasses and a mustache':  # dorian
+    'sunglasses-and-a-mustache':  # dorian
         modes[2],
 
-    'ancient ritual':  # phrygian
+    'ancient-ritual':  # phrygian
         modes[3],
 
-    'summer breeze':
+    'summer-breeze':
         modes[4],
 
-    'smoky jazz lounge':  # mixo
+    'smoky-jazz-lounge':  # mixo
         modes[5],
 
-    'eating ice cream in the shower':
+    'eating-ice-cream-in-the-shower':
         modes[6],
 
-    'denny\'s at 2am':     # locrian
+    'demon-palace':     # locrian
         modes[7],
 
 }
@@ -442,8 +447,6 @@ class Progression:
 
         return copyChord
 
-    # TODO
-    # chords = an array of chords
     # change order of notes based on surrounding chords
     def voice_all(self):
         i = 1
