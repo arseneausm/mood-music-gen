@@ -23,10 +23,10 @@ nameToNum = {'C': 0,
              }
 numToName = {0: 'C',
 
-             1: 'C#',
+             1: 'Db',
              2: 'D',
 
-             3: 'D#',
+             3: 'Eb',
              4: 'E',
 
              5: 'F',
@@ -37,7 +37,7 @@ numToName = {0: 'C',
 
              9: 'A',
 
-             10: 'A#',
+             10: 'Bb',
              11: 'B',
 
              12: 'C2'
@@ -272,7 +272,7 @@ moodDict = {  # mood
          [4, 5, 5, 6, 1, 4, 1]  # mode degrees to weight
          ],
     'beige':
-        [7,  # numChords
+        [2,  # numChords
          2,  # degreeStart
          6,  # weight for mode degrees
          [1, 2, 5, 1, 1]  # mode degrees to weight
@@ -289,7 +289,7 @@ moodDict = {  # mood
          6,  # weight for mode degrees
          [1, 1, 5, 5, 1, 5, 4, 5, 4]  # mode degrees to weight
          ],
-    'mahogony':
+    'mahogany':
         [5,  # numChords
          2,  # degreeStart
          2,  # weight for mode degrees
@@ -331,52 +331,52 @@ spiceDict = {  # spice
     # chili powder, garam masala, ginger, cinnamon, pepper, coriander, msg, paprika, salt, oregano, saffron, sugar
     'sugar':
         [[2, 3, 3, 4, 4],  # numNotesRange
-         0.08,  # chance for accidentals
+         0.08  # chance for accidentals
          ],
     'saffron':
         [[2, 3, 3, 3, 4],  # numNotesRange
-         0.16,  # chance for accidentals
+         0.16  # chance for accidentals
          ],
     'oregano':
         [[2, 3, 3, 3, 4, 5],  # numNotesRange
-         0.24,  # chance for accidentals
+         0.24  # chance for accidentals
          ],
     'salt':
         [[3, 3, 3, 4, 4],  # numNotesRange
-         0.32,  # chance for accidentals
+         0.32  # chance for accidentals
          ],
     'paprika':
         [[2, 3, 4, 4, 4, 5],  # numNotesRange
-         0.40,  # chance for accidentals
+         0.40  # chance for accidentals
          ],
     'msg':
         [[4, 3],  # numNotesRange
-         0.48,  # chance for accidentals
+         0.48  # chance for accidentals
          ],
     'coriander':
         [[3, 4, 5],  # numNotesRange
-         0.56,  # chance for accidentals
+         0.56  # chance for accidentals
          ],
     'pepper':
         [[3, 3, 4, 5, 6],  # weighted numNotesRange
-         0.64,  # chance for accidentals
+         0.64  # chance for accidentals
          ],
     'cinnamon':
         [[3, 4, 4, 6, 5],  # numNotesRange
-         0.72,  # chance for accidentals
+         0.72  # chance for accidentals
          ],
     'ginger':
         [[3, 4, 4, 5, 5],  # numNotesRange
-         0.8,  # chance for accidentals
+         0.8  # chance for accidentals
          ],
     'garam masala':
         [[3, 4, 4, 4, 5, 6, 6, 7],  # numNotesRange
-         0.88,  # chance for accidentals
+         0.88  # chance for accidentals
          ],
     'chili powder':
         [[4, 4, 5, 5, 5, 6, 7],  # numNotesRange
-         0.96,  # chance for accidentals
-         ],
+         0.96  # chance for accidentals
+         ]
     # coriander, saffron, paprika, oregano, msg, cinnamon, garam masala,
     # chili powder, garam masala, ginger, cinnamon, pepper, coriander, msg, paprika, salt, oregano, saffron, sugar
 }

@@ -6,8 +6,8 @@ import numpy as np
 
 vibe = 'ihop commercial'  # raw_input("Pick a vibe\n")
 # print ("You picked: " + vibe)
-mood = 'onyx'  # raw_input("Pick a mood\n")
-spice = 'chili powder'  # raw_input("Pick a spice\n")
+mood = 'mahogany'  # raw_input("Pick a mood\n")
+spice = 'salt'  # raw_input("Pick a spice\n")
 
 output = progression_producer.Progression(vibe, mood, spice)
 print(output)
