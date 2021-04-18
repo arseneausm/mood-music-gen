@@ -40,4 +40,4 @@ def synthesize(v, m, s):
     wavfile.write('synthChords.wav', rate=44100, data=progression.astype(np.int16))
 
 
-# synthesize_progression('ihop-commercial', 'beige', 'salt')
+synthesize('smoky-lounge', 'marigold', 'msg')
