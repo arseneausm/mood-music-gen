@@ -154,7 +154,7 @@ class Chord():
         # Note: this will only work if we assume that the duration of all the notes are the same
         
         dur = noteList[0].duration * 44100
-        self.wav = np.zeros((dur,))
+        self.wav = np.zeros((int(dur),))
 
         # Just add the wave data for each chord inputted
         for i in noteList:

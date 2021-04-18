@@ -15,8 +15,9 @@ print(output)
 octave = 4
 duration = 100
 chordDuration = duration / len(output.chordSequence)
-synthChords = np.zeros(((chordDuration * 44100)))
+synthChords = np.zeros((int(chordDuration * 44100)))
 
+chords = []
 
 for chord in output.chordSequence:
     synthNotesList = []
@@ -24,8 +25,19 @@ for chord in output.chordSequence:
         noteName = note.noteName
         synthNote = synth.Note(noteName, octave, chordDuration)
         synthNotesList.append(synthNote)
-    np.append(synthChords, synth.Chord(synthNotesList).wav)
-    # synthChords = synthChords + synth.Chord(synthNotesList).wav
 
-wavfile.write('synthChords.wav', rate=44100, data=synthChords.astype(np.int16))
+    print(len(synthNotesList))
+    chords.append(synth.Chord(synthNotesList))
+
+print(len(chords))
+
+progression = np.array([])
+
+for i in range(len(chords)):
+    progression = np.append(progression, chords[i].wav)
+
+# np.append(synthChords, synth.Chord(synthNotesList).wav)
+# synthChords = synthChords + synth.Chord(synthNotesList).wav
+
+wavfile.write('synthChords.wav', rate=44100, data=progression.astype(np.int16))
 
