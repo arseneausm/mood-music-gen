@@ -1,25 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from .forms import ExampleForm
+
 
 # Create your views here.
-
-posts = [
-	{
-		'author': 'CoreyMS',
-		'title': 'Blog Post 1',
-		'content': 'First post!',
-		'date': '1/1/21'
-	},
-	{
-		'author': 'Jane Doe',
-		'title': 'Blog Post 2',
-		'content': '2e2',
-		'date': 'fizzywig'
-	}
-]
-
-def index(request):
-	context = {
-		'posts': posts
-	}
-
-	return render(request, 'index.html', context)
+def contact(request):
+	form = ExampleForm()
+	return render(request, "home.html", {'form':form})
