@@ -36,8 +36,9 @@ def synthesize(v, m, s):
 
     for i in range(len(chords)):
         progression = np.append(progression, chords[i].wav)
+    filename = '' + v + m + s + '.wav'
 
-    wavfile.write('synthChords.wav', rate=44100, data=progression.astype(np.int16))
+    wavfile.write(filename, rate=44100, data=progression.astype(np.int16))
 
 
-synthesize('smoky-lounge', 'marigold', 'msg')
+synthesize('summer-breeze', 'porcelain', 'msg')
