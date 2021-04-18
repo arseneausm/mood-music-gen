@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>moodly.</title>
+  <link rel="shortcut icon" type="image/png" href="images/favicon-16x16.png"/>
+
+  <img src="https://i.postimg.cc/MTMYLXgL/how-are-you-feeling1.png" class="center">
+  
+  <style>
+  
+  .center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+    </style>
+ 
+
+  <!-- Bootstrap core CSS -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  
+  <!-- Custom styles for this template -->
+  <link href="{% static 'css/the-big-picture.css' %}"  rel="stylesheet">
+      
+</head>
+
+<body>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <style>
+
+    body {
+      background-image: url('https://i.imgur.com/hvnNGhB.gif');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: 100% 100%;
+    }
+    .dropbtn {
+      display: inline-block;
+      background-color: rgba(255, 255, 255, 0);
+      color: rgba(255, 255, 255, 0);
+      padding: 1px;
+      border: none;
+      cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  top: 100%;
+  display: none;
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0);
+  min-width: 265px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  top: 100%;
+  color: rgb(255, 255, 255);
+  padding: 10px;
+  text-decoration: none;
+  font-family: system-ui;
+  font-weight: 700;
+  display: block;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.dropdown a:hover {background-color: rgba(0, 0, 0, 0.9);}
+
+.show {display: inline-block;}
+
+.wrapper {
+  width: 800px;
+  margin: auto;
+}
+
+</style>
+</head>
+<body>
+
+<div class="wrapper">
+<div class="navbar">
+
+  
+  <div class="dropdown">
+  <button class="dropbtn" onclick="myFunction(1)">
+    <img src="https://i.postimg.cc/d0q4zDnQ/vibe2.png" width=260px style="float:bottom;">
+    <i class="fa fa-caret-down"></i>
+  </button>
+  <div class="dropdown-content" id="myDropdown1">
+    <a href="#summer">summer breeze</a>
+    <a href="#ihop">ihop commercial</a>
+    <a href="#lounge">smoky lounge</a>
+    <a href="#sunglasses">sunglasses and a mustache</a>
+    <a href="#ritual">ancient ritual</a>
+    <a href="#palace">demon palace !!DO NOT TOUCH!!</a>
+    <a href="#icecream">eating ice cream in the shower</a>
+  </div>
+  </div>
+
+  <div class="dropdown">
+  <button class="dropbtn" onclick="myFunction(2)">
+    <img src="https://i.postimg.cc/FHSZf3CH/mood2.png" width=260px style="float:bottom;">
+    <i class="fa fa-caret-down"></i>
+  </button>
+  <div class="dropdown-content" id="myDropdown2">
+    <a href="#porcelain">porcelain</a>
+    <a href="#beige">beige</a>
+    <a href="#marigold">marigold</a>
+    <a href="#cherry">cherry</a>
+    <a href="#mahogany">mahogany</a>
+    <a href="#bubblegum">bubblegum</a>
+    <a href="#sapphire">sapphire</a>
+    <a href="#chartreuse">chartreuse</a>
+    <a href="#onyx">onyx</a>
+
+  </div>
+  </div>
+
+  <div class="dropdown">
+  <button class="dropbtn" onclick="myFunction(3)">
+    <img src="https://i.postimg.cc/BvGC2bRc/spice2.png" width=260px style="float:bottom;">
+    <i class="fa fa-caret-down"></i>
+  </button>
+  <div class="dropdown-content" id="myDropdown3">
+    <a href="#chili">chili powder</a>
+    <a href="#coriander">coriander</a>
+    <a href="#saffron">saffron</a>
+    <a href="#ginger">ginger</a>
+    <a href="#paprika">paprika</a>
+    <a href="#oregano">oregano</a>
+    <a href="#salt">salt</a>
+    <a href="#MSG">MSG</a>
+    <a href="#cinnamon">cinnamon</a>
+    <a href="#garam_masala">garam masala</a>
+    <a href="#pepper">pepper</a>
+    <a href="#sugar">sugar</a>
+
+  </div>
+  </div>
+
+</div>
+</div>
+
+<script>
+function myFunction(num) {
+      document.getElementById("myDropdown" + num).classList.toggle("show");
+    }
+
+window.onclick = function(e) {
+  if (!e.target.matches('.dropbtn')) {
+  var myDropdown = document.getElementById("myDropdown");
+    if (myDropdown.classList.contains('show')) {
+      myDropdown.classList.remove('show');
+    }
+  }
+}
+</script>
+
+  <a href ="#playing" >
+    <div class="playbtn" >
+      <img src="https://i.postimg.cc/FHk3mwTf/let-me-play-you-something1.png" width="20%" height="20%" id="playbutton" onclick="playFunction()" />
+    </div>
+ </a>
+
+  <style>
+
+  .playbtn {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      background-color: rgba(255, 255, 255, 0);
+      color: rgba(255, 255, 255, 0);
+      padding: 1px;
+      border: none;
+      cursor: pointer;
+  }
+  
+  .playbtn .playbtn:hover {background-color: rgba(255, 255, 255, 0.6);
+  }
+
+  .wrapper {
+  width: 800px;
+  margin: auto;
+}
+  .show {display: block;}
+
+  </style>
+
+<a href ="#replay" >
+  <div class="playbtn" >
+    <img src="https://i.postimg.cc/wBB2hw2g/hear-again1.png" width="20%" height="20%" id="playagain" onclick="playFunction()"  />
+  </div>
+</a>
+
+<a href ="#feeling" >
+  <div class="playbtn" >
+    <img src="https://i.postimg.cc/XvD8x91F/feeling-different1.png" width="20%" height="20%" id="playanother" onclick="playFunction()" />
+  </div>
+</a>
+
+</body>
+</html>
