@@ -438,11 +438,3 @@ spice1 = random.choice(spiceDict.keys())  # 'chili powder'
 testProgression = Progression(vibe1, mood1, spice1)
 print "Here's a little something inspired by a " + mood1 + " " + vibe1 + " with " + spice1 + ".\n"
 print testProgression
-
-#c1 = Chord(modes[1], 4, 2)
-#c2 = Chord(modes[1], 3, 1)
-#print c1
-#print c2
-
-#c2.set_notes(voiceChord(c2, c1))
-#print c2
