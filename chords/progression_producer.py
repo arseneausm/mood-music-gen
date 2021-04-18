@@ -67,7 +67,7 @@ class Note:
     def sharp(self):
         i = (self.noteNumber + 1) % 12
         notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
-        return notes[i]
+        return Note(notes[i])
 
     def flatten(self):
         self.noteNumber = (self.noteNumber - 1) % 12
@@ -77,7 +77,7 @@ class Note:
     def flat(self):
         i = (self.noteNumber - 1) % 12
         notes = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B']
-        return notes[i]
+        return Note(notes[i])
 
     @classmethod
     def get_interval(cls, note1, note2):
@@ -140,6 +140,9 @@ class Chord:
             else:
                 noteDegree = (noteDegree + 2) % 7
 
+    def set_notes(self, notes):
+        self.notes = notes
+
     def copy_of(self, template):
         self.mode = template.mode
         self.root = template.root
@@ -199,7 +202,7 @@ class Chord:
         self.change_degree(3, True)
 
 
-def voiced(currentChord, lastChord):
+def voiceChord(currentChord, lastChord):
     voicedChord = []
     destNotes = currentChord.notes
     sourceNotes = lastChord.notes
@@ -211,7 +214,7 @@ def voiced(currentChord, lastChord):
             min_distance = min(abs(d_note.noteNumber - s_note.noteNumber), 12 - abs(d_note.noteNumber - s_note.noteNumber))
             v.append(min_distance)
         matrix.append(v)
-    print matrix
+    # print matrix
     mapMinDict = {}
     for j in range(len(matrix[0])):
         standing_min = 12
@@ -222,15 +225,15 @@ def voiced(currentChord, lastChord):
                 standing_min = matrix[i][j]
                 # TODO if matrix[i][j] == standing_min, add to an array of min_indexes
         mapMinDict[j] = min_index
-    print mapMinDict
+    # print mapMinDict
     voicedChordRef = mapMinDict.items()
     voicedChordRef = sorted(voicedChordRef, key = lambda x: x[1])
     voicedChordRef = [x[0] for x in voicedChordRef]
-    print voicedChordRef
+    # print voicedChordRef
     for num in voicedChordRef:
         note = destNotes[num]
-        voicedChord.append(str(note))
-    return voicedChord
+        voicedChord.append(note)
+    return voicedChord  # returns an array of notes, to use, eg c2.set_notes(voiceChord(c2, c1))
 
 
 vibeDict = {  # vibe -- target at night, summer breeze (lydian),
@@ -377,10 +380,7 @@ class Progression:
                 lastChord = nextChord
                 i = i + 1
             self.degreeSequence.append(random.choice(weightedModeDegrees))
-
-
-
-        # self.chordSequence.append(Chord(self.modeUsed, self.numNotes, 1))
+        self.voice_all()
 
     def __str__(self):
         chords = ''
@@ -409,11 +409,15 @@ class Progression:
     # TODO
     # chords = an array of chords
     # change order of notes based on surrounding chords
-    def voice_leading(self, chords):
-        self.chords = []
-        for i in (range(len(chords)) - 1):
-            self.chords.append(chords[i].voiced(chords[i + 1]))
-        pass
+    def voice_all(self):
+        i = 1
+        while i < len(self.chordSequence):
+            currentChord = self.chordSequence[i]
+            lastChord = self.chordSequence[i-1]
+            currentChord.set_notes(voiceChord(currentChord, lastChord))
+            i = i + 1
+
+    # c2.set_notes(voiceChord(c2, c1))
 
 # c1 = Chord(1, 4, 2)  # D F A C
 # c2 = Chord(1, 4, 5)  # G B D F
@@ -431,14 +435,14 @@ vibe1 = random.choice(vibeDict.keys())  # 'ihop commercial'
 mood1 = random.choice(moodDict.keys())  # 'porcelain'
 spice1 = random.choice(spiceDict.keys())  # 'chili powder'
 
-# testProgression = Progression(vibe1, mood1, spice1)
-# print "Here's a little something inspired by a " + mood1 + " " + vibe1 + " with " + spice1 + ".\n"
-# print testProgression
+testProgression = Progression(vibe1, mood1, spice1)
+print "Here's a little something inspired by a " + mood1 + " " + vibe1 + " with " + spice1 + ".\n"
+print testProgression
 
-c1 = Chord(modes[1], 4, 2)
-c2 = Chord(modes[1], 3, 1)
-print c1
-print c2
+#c1 = Chord(modes[1], 4, 2)
+#c2 = Chord(modes[1], 3, 1)
+#print c1
+#print c2
 
-voicedChordTest = voiced(c2, c1)
-print voicedChordTest
+#c2.set_notes(voiceChord(c2, c1))
+#print c2
