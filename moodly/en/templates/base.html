@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+<!DOCTYPE html>
 <head>
-    
- <title>{% block title %}Python Django Simple Dropdown List Binding Populate Data {% endblock %}</title>
+	{% load static %}
+  	<title>moodly.</title>
 
+  	<link rel="stylesheet" type="text/css" href="{% static "css/index.css" %}">
 </head>
-<body>
 
-  {% block content %} {% endblock %}
+<body>
+	
+
+  	<img src="{% static "img/background.gif" %}" alt="My image">
+
+  	{% block content %} {% endblock %}
 
 </body>
 </html>

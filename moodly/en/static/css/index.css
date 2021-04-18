@@ -1,55 +1,20 @@
-.center {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
-  }
-
-  .vibebutton {
-    display: inline-block;
-    margin-left: auto;
-    width: 15%;
-    margin: 0 auto;
-    text-align: center;
-  }
-
-  .moodbutton {
-    display: inline-block;
-    margin-left: auto;
-    width: 15%;
-    margin: 0 auto;
-    text-align: center;
-  }
-
-  .spicebutton {
-    display: inline-block;
-    margin-left: auto;
-    width: 15%;
-    margin: 0 auto;
-    text-align: center;
-
-  }
-body{
-    background-image: url('../img/background.gif');
-    background-size: cover;
-    
-    
-    
-    height: 100vh;
-    padding:0;
-    margin:0;
-}
+body {
+      background-image: url('../img/background.gif');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: 100% 100%;
+    }
 .dropbtn {
-      background-color: #3498DB;
+      display: inline-block;
+      background-color: rgba(255, 255, 255, 0);
       color: rgba(255, 255, 255, 0);
-      padding: 16px;
-      font-size: 16px;
+      padding: 1px;
       border: none;
       cursor: pointer;
 }
 
 .dropbtn:hover, .dropbtn:focus {
-  background-color: rgba(255, 255, 255, 0);
+  background-color: rgba(255, 255, 255, 0.4);
 }
 
 .dropdown {
@@ -58,22 +23,57 @@ body{
 }
 
 .dropdown-content {
+  top: 100%;
   display: none;
   position: absolute;
   background-color: rgba(255, 255, 255, 0);
-  min-width: 160px;
+  min-width: 265px;
   overflow: auto;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
 }
 
 .dropdown-content a {
+  top: 100%;
   color: rgb(255, 255, 255);
-  padding: 12px 16px;
+  padding: 10px;
   text-decoration: none;
+  font-family: system-ui;
+  font-weight: 700;
   display: block;
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
-.dropdown a:hover {background-color: rgba(255, 255, 255, 0);}
+.dropdown a:hover {background-color: rgba(0, 0, 0, 0.9);}
 
-.show {display: block;}
+.show {display: inline-block;}
+
+.wrapper {
+  width: 800px;
+  margin: auto;
+}
+
+.playbtn {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      background-color: rgba(255, 255, 255, 0);
+      color: rgba(255, 255, 255, 0);
+      padding: 1px;
+      border: none;
+      cursor: pointer;
+  }
+  
+.playbtn .playbtn:hover {background-color: rgba(255, 255, 255, 0.6);
+  }
+
+.wrapper {
+  width: 800px;
+  margin: auto;
+}
+  .show {display: block;}
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
