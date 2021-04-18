@@ -151,8 +151,10 @@ class Note:
 class Chord():
     # args is a tuple with all the input variables
     def __init__(self, noteList):
-        dur = 10 / len(noteList)
-        self.wav = 44100*10*dur
+        # Note: this will only work if we assume that the duration of all the notes are the same
+        
+        dur = 44100 * noteList[0].duration
+        self.wav = np.zeros(dur)
 
         # Just add the wave data for each chord inputted
         for i in noteList:
