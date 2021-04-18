@@ -152,7 +152,7 @@ class Chord():
     # args is a tuple with all the input variables
     def __init__(self, noteList):
         dur = 10 / len(noteList)
-        self.wav = 44100*dur
+        self.wav = 44100*10*dur
 
         # Just add the wave data for each chord inputted
         for i in noteList:

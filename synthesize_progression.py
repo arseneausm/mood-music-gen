@@ -11,6 +11,7 @@ print output
 
 octave = 4
 duration = 4
+synthChord = None
 
 for chord in output.chordSequence:
     synthNotesList = []
@@ -18,6 +19,6 @@ for chord in output.chordSequence:
         noteName = note.noteName
         synthNote = synth.Note(noteName, octave, duration)
         synthNotesList.append(synthNote)
-    synthChord = synth.Chord([synthNotesList])
+    synthChord = synthChord + synth.Chord([synthNotesList])
 
 
