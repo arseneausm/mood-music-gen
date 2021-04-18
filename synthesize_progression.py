@@ -4,10 +4,10 @@ import progression_producer
 import synth
 import numpy as np
 
-vibe = 'demon-palace'  # raw_input("Pick a vibe\n")
+vibe = 'sunglasses-and-a-mustache'  # raw_input("Pick a vibe\n")
 # print ("You picked: " + vibe)
-mood = 'porcelain'  # raw_input("Pick a mood\n")
-spice = 'coriander'  # raw_input("Pick a spice\n")
+mood = 'bubblegum'  # raw_input("Pick a mood\n")
+spice = 'chili-powder'  # raw_input("Pick a spice\n")
 
 
 output = progression_producer.Progression(vibe, mood, spice)
