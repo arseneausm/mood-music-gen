@@ -3,27 +3,58 @@
 {% block content %}
 
 {% load crispy_forms_tags %}
-
-<form action = "" method = "get">
-    <select name="vibe" id="vibe">
-    	<option value="vibe1">Vibe 1</option>
-    	<option value="vibe2">Vibe 2</option>
-    	<option value="vibe3">Vibe 3</option>
-    	<option value="vibe4">Vibe 4</option>
+{% load static %}
+<style>
+	.box {
+        width: 120px;
+        height: 30px;
+        border: 1px solid #999;
+        font-size: 18px;
+        color: #1c87c9;
+        background-color: #eee;
+        border-radius: 5px;
+        box-shadow: 4px 4px #ccc;
+      }
+</style>
+<center>
+<form action = "" method = "get" id="center">
+    <select class="box" name="vibe" id="center">
+    	<option value="summer-breeze">summer breeze</option>
+    	<option value="ihop-commercial">ihop commercial</option>
+    	<option value="smokey-lounge">smokey lounge</option>
+    	<option value="sunglasses">sunglasses and a mustache</option>
+    	<option value="ancient-ritual">ancient ritual</option>
+    	<option value="demon-palace">demon palace !!DO NOT TOUCH!!</option>
+    	<option value="ice-cream">eating ice cream in the shower</option>
   	</select>
-  	<select name="mood" id="mood">
-    	<option value="mood1">mood 1</option>
-    	<option value="mood2">mood 2</option>
-    	<option value="mood3">mood 3</option>
-    	<option value="mood4">mood 4</option>
+  	<select class="box" name="mood" id="center">
+    	<option value="porcelain">porcelain</option>
+    	<option value="beige">beige</option>
+    	<option value="marigold">marigold</option>
+    	<option value="cherry">cherry</option>
+    	<option value="mahogany">mahogany</option>
+    	<option value="bubblegum">bubblegum</option>
+    	<option value="sapphire">sapphire</option>
+    	<option value="chartreuse">chartreuse</option>
+    	<option value="onyx">onyx</option>
   	</select>
-  	<select name="spice" id="spice">
-    	<option value="spice1">spice 1</option>
-    	<option value="spice2">spice 2</option>
-    	<option value="spice3">spice 3</option>
-    	<option value="spice4">spice 4</option>
+  	<select class="box" name="spice" id="center">
+    	<option value="chili-powder">chili powder</option>
+    	<option value="coriander">coriander</option>
+    	<option value="saffron">saffron</option>
+    	<option value="ginger">ginger</option>
+    	<option value="paprika">paprika</option>
+    	<option value="oregano">oregano</option>
+    	<option value="salt">salt</option>
+    	<option value="MSG">MSG</option>
+    	<option value="garam-masala">gram masala</option>
+    	<option value="pepper">pepper</option>
+    	<option value="sugar">sugar</option>
   	</select>
-    <input type="submit" value="Play!">
+  	<br>
+  	<br>
+    <input type="submit" value="let me play you something">
 </form>
+</center>
 
 {% endblock %}

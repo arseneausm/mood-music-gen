@@ -4,7 +4,7 @@ body {
       background-attachment: fixed;
       background-size: 100% 100%;
     }
-.dropbtn {
+.select {
       display: inline-block;
       background-color: rgba(255, 255, 255, 0);
       color: rgba(255, 255, 255, 0);
@@ -17,7 +17,7 @@ body {
   background-color: rgba(255, 255, 255, 0.4);
 }
 
-.dropdown {
+.vibe {
   position: relative;
   display: inline-block;
 }
@@ -44,7 +44,7 @@ body {
   background-color: rgba(0, 0, 0, 0.7);
 }
 
-.dropdown a:hover {background-color: rgba(0, 0, 0, 0.9);}
+.vibe a:hover {background-color: rgba(0, 0, 0, 0.9);}
 
 .show {display: inline-block;}
 
