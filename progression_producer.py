@@ -71,12 +71,12 @@ class Note:
 
     def flatten(self):
         self.noteNumber = (self.noteNumber - 1) % 12
-        notes = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B']
+        notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
         self.noteName = notes[self.noteNumber]
 
     def flat(self):
         i = (self.noteNumber - 1) % 12
-        notes = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B']
+        notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
         return Note(notes[i])
 
     @classmethod
