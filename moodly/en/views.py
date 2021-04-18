@@ -3,6 +3,8 @@ from .forms import ExampleForm
 
 
 # Create your views here.
-def contact(request):
-	form = ExampleForm()
-	return render(request, "home.html", {'form':form})
+def index(request):
+	a = request.GET
+	print(a)
+    # logic of view will be implemented here
+	return render(request, "home.html")

@@ -4,13 +4,26 @@
 
 {% load crispy_forms_tags %}
 
-<div class="container py-5">
-	<h3>Contact</h3>
-	<form method="post">
-    	{% csrf_token %}
-        {{form|crispy}}
-         <button class="btn btn-primary">Submit</button>
-    </form>
-</div>
+<form action = "" method = "get">
+    <select name="vibe" id="vibe">
+    	<option value="vibe1">Vibe 1</option>
+    	<option value="vibe2">Vibe 2</option>
+    	<option value="vibe3">Vibe 3</option>
+    	<option value="vibe4">Vibe 4</option>
+  	</select>
+  	<select name="mood" id="mood">
+    	<option value="mood1">mood 1</option>
+    	<option value="mood2">mood 2</option>
+    	<option value="mood3">mood 3</option>
+    	<option value="mood4">mood 4</option>
+  	</select>
+  	<select name="spice" id="spice">
+    	<option value="spice1">spice 1</option>
+    	<option value="spice2">spice 2</option>
+    	<option value="spice3">spice 3</option>
+    	<option value="spice4">spice 4</option>
+  	</select>
+    <input type="submit" value="Play!">
+</form>
 
 {% endblock %}
