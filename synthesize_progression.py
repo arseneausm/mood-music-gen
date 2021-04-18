@@ -24,7 +24,8 @@ for chord in output.chordSequence:
         noteName = note.noteName
         synthNote = synth.Note(noteName, octave, chordDuration)
         synthNotesList.append(synthNote)
-    synthChords = synthChords + synth.Chord(synthNotesList).wav
+    np.append(synthChords, synth.Chord(synthNotesList).wav)
+    # synthChords = synthChords + synth.Chord(synthNotesList).wav
 
 wavfile.write('synthChords.wav', rate=44100, data=synthChords.astype(np.int16))
 
