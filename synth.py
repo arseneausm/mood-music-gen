@@ -153,17 +153,17 @@ class Chord():
     def __init__(self, noteList):
         # Note: this will only work if we assume that the duration of all the notes are the same
         
-        dur = 44100 * noteList[0].duration
-        self.wav = np.zeros(dur)
+        dur = noteList[0].duration * 44100
+        self.wav = np.zeros((dur,))
 
         # Just add the wave data for each chord inputted
         for i in noteList:
             self.wav += i.wav
         
 
-C4 = Note('C', 4, 4)
-G4 = Note('G', 4, 4)
+#C4 = Note('C', 4, 4)
+#G4 = Note('G', 4, 4)
 
-C4G4 = Chord([C4, G4])
+#C4G4 = Chord([C4, G4])
 
 # wavfile.write('firstchord.wav', rate=44100, data=C4G4.wav.astype(np.int16))
