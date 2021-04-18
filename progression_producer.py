@@ -257,7 +257,7 @@ vibeDict = {  # vibe -- target at night, summer breeze (lydian),
     'summer-breeze':
         modes[4],
 
-    'smoky-jazz-lounge':  # mixo
+    'smoky-lounge':  # mixo
         modes[5],
 
     'eating-ice-cream-in-the-shower':
@@ -374,12 +374,12 @@ spiceDict = {  # spice
         [[3, 4, 4, 5, 5],  # numNotesRange
          0.8  # chance for accidentals
          ],
-    'garam masala':
+    'garam-masala':
         [[3, 4, 4, 4, 5, 6, 6, 7],  # numNotesRange
          0.88  # chance for accidentals
          ],
-    'chili powder':
-        [[4, 4, 5, 5, 5, 6, 7],  # numNotesRange
+    'chili-powder':
+        [[5, 5, 5, 6, 7],  # numNotesRange
          0.96  # chance for accidentals
          ]
     # coriander, saffron, paprika, oregano, msg, cinnamon, garam masala,
