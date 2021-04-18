@@ -1,0 +1,91 @@
+Index: matthew's progression hell.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+># okay so here we go\n\n# basic scale array -- pretending everything is in Cmaj\n# gonna build it with scale degree VARIABLES\n# but they're gonna redirect to the semitone scale degree/distance from root note...\n# i.e. scale degree 'C' = 0, scale degree 'D' = 2, 'E' = 4 (major third), etc\nC = 0\nD = 2\nE = 4\nF = 5\nG = 7\nA = 9\nB = 11\nC2 = 12\n\n\ndef sharpen(note):\n    return note+1\n\n\ndef flatten(note):\n    return note-1\n\nmajorScale = [C, D, E, F, G, A, B, C2]\nminorScale = [C, D, flatten(E), F, G, flatten(A), flatten(B), C2]\n\n\n\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/matthew's progression hell.py b/matthew's progression hell.py
+--- a/matthew's progression hell.py	
++++ b/matthew's progression hell.py	
+@@ -4,15 +4,6 @@
+ # gonna build it with scale degree VARIABLES
+ # but they're gonna redirect to the semitone scale degree/distance from root note...
+ # i.e. scale degree 'C' = 0, scale degree 'D' = 2, 'E' = 4 (major third), etc
+-C = 0
+-D = 2
+-E = 4
+-F = 5
+-G = 7
+-A = 9
+-B = 11
+-C2 = 12
+-
+ 
+ def sharpen(note):
+     return note+1
+@@ -21,8 +12,61 @@
+ def flatten(note):
+     return note-1
+ 
+-majorScale = [C, D, E, F, G, A, B, C2]
+-minorScale = [C, D, flatten(E), F, G, flatten(A), flatten(B), C2]
++# dictionary to convert note names to number degrees and vice versa
++numberLookUp = {0: 'C',
++                1: 'C#',
++                2: 'D',
++                3: 'Eb',
++                4: 'E',
++                5: 'F',
++                6: 'F#',
++                7: 'G',
++                8: 'Ab',
++                9: 'A',
++                10: 'Bb',
++                11: 'B',
++                12: 'C2'}
++noteLookUp = {'C': 0,
++              'C#': 1,
++              'D': 2,
++              'Eb': 3,
++              'E': 4,
++              'F': 5,
++              'F#': 6,
++              'G': 7,
++              'Ab': 8,
++              'A': 9,
++              'Bb': 10,
++              'B': 11,
++              'C2': 12}
++majorScale = [0, 2, 4, 5, 7, 9, 11, 12]
++minorScale = [0, 2, 3, 5, 7, 8, 10, 12]
++
++def notes_to_nums(notes):
++    i = 0
++    for note in notes:
++        notes[i] = noteLookUp[note]
++        i = i+1
++    return notes
++
++
++def nums_to_notes(notes):
++    i = 0
++    for note in notes:
++        notes[i] = numberLookUp[note]
++        i = i+1
++    return notes
++
+ 
++class Chord:
++    def __init__(self, notes):
++        self.notes = notes_to_nums(notes)
++        i = 0
+ 
++    def __str__(self):
++        return str(nums_to_notes(self.notes))
++
++
++Cmaj = Chord(['C', 'E', 'G'])
+ 
++print Cmaj
+\ No newline at end of file
