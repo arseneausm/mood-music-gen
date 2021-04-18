@@ -245,25 +245,25 @@ vibeDict = {  # vibe -- target at night, summer breeze (lydian),
     # ihop commercial (ionian), smoky jazz lounge (mixolydian),
     # sunglasses and a mustache (dorian), ancient ritual (phrygian), demon palace DO NOT TOUCH! (locrian)
     # eating ice cream in the shower (aoleian)
-    'ihop commercial':
+    'ihop-commercial':
         modes[1],
 
-    'sunglasses and a mustache':  # dorian
+    'sunglasses-and-a-mustache':  # dorian
         modes[2],
 
-    'ancient ritual':  # phrygian
+    'ancient-ritual':  # phrygian
         modes[3],
 
-    'summer breeze':
+    'summer-breeze':
         modes[4],
 
-    'smoky jazz lounge':  # mixo
+    'smoky-jazz-lounge':  # mixo
         modes[5],
 
-    'eating ice cream in the shower':
+    'eating-ice-cream-in-the-shower':
         modes[6],
 
-    'denny\'s at 2am':     # locrian
+    'demon-palace':     # locrian
         modes[7],
 
 }
