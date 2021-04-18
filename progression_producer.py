@@ -272,7 +272,7 @@ moodDict = {  # mood
          [4, 5, 5, 6, 1, 4, 1]  # mode degrees to weight
          ],
     'beige':
-        [4,  # numChords
+        [7,  # numChords
          2,  # degreeStart
          6,  # weight for mode degrees
          [1, 2, 5, 1, 1]  # mode degrees to weight
@@ -289,6 +289,42 @@ moodDict = {  # mood
          6,  # weight for mode degrees
          [1, 1, 5, 5, 1, 5, 4, 5, 4]  # mode degrees to weight
          ],
+    'mahogony':
+        [5,  # numChords
+         2,  # degreeStart
+         2,  # weight for mode degrees
+         [1, 1, 5, 5, 1, 5, 2, 5, 2, 2, 2, 2, 7]  # mode degrees to weight
+         ],
+    'bubblegum':
+        [8,  # numChords
+         1,  # degreeStart
+         10,  # weight for mode degrees
+         [1, 1, 5, 5, 1, 5, 5, 4]  # mode degrees to weight
+         ],
+    'boysenberry':
+        [3,  # numChords
+         6,  # degreeStart
+         6,  # weight for mode degrees
+         [5, 4, 1, 3, 2, 1, 6, 5, 6]  # mode degrees to weight
+         ],
+    'sapphire':
+        [5,  # numChords
+         4,  # degreeStart
+         8,  # weight for mode degrees
+         [4, 4, 1, 1, 1, 1, 4, 5, 4]  # mode degrees to weight
+         ],
+    'chartreuse':
+        [5,  # numChords
+         3,  # degreeStart
+         5,  # weight for mode degrees
+         [1, 3, 4, 5, 1, 1, 4, 5, 6]  # mode degrees to weight
+         ],
+    'onyx':
+        [6,  # numChords
+         7,  # degreeStart
+         1,  # weight for mode degrees
+         [6, 4, 2, 2, 2, 1, 7, 5, 4]  # mode degrees to weight
+         ]
 }
 
 spiceDict = {  # spice
@@ -431,10 +467,10 @@ class Progression:
 # print rootChord
 # tempChord = Chord(1, 3, 1)
 
-vibe1 = random.choice(vibeDict.keys())  # 'ihop commercial'
-mood1 = random.choice(moodDict.keys())  # 'porcelain'
-spice1 = random.choice(spiceDict.keys())  # 'chili powder'
+#vibe1 = random.choice(vibeDict.keys())  # 'ihop commercial'
+#mood1 = random.choice(moodDict.keys())  # 'porcelain'
+#spice1 = random.choice(spiceDict.keys())  # 'chili powder'
 
-testProgression = Progression(vibe1, mood1, spice1)
-print "Here's a little something inspired by a " + mood1 + " " + vibe1 + " with " + spice1 + ".\n"
-print testProgression
+#testProgression = Progression(vibe1, mood1, spice1)
+#print "Here's a little something inspired by a " + mood1 + " " + vibe1 + " with " + spice1 + ".\n"
+#print testProgression
